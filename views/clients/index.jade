@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+    h1.
+         #{title}
+    ul
+        - each client, i in clients
+            li
+                = client.name
+                = client.background
+                = client.dob
+                = client.isloved
+                = client._id
+                form(action='/clients/#{client._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
+                    input(type='hidden',value='DELETE',name='_method')
+                    button(type='submit').
+                        Delete
+                p 
+                    a(href='/clients/#{client._id}/edit') Edit
+                p
+                    a(href='/clients/#{client._id}') Show

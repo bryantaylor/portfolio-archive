@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	h1.
+		#{title}
+	form#formAddBlob(name="addclient",method="post",action="/clients")
+		p Client Name: 
+			input#clientName(type="text", placeholder="Client Name…", name="name")
+		p Background:
+			textarea#background(placeholder="Client Backgorund…", name="background")
+		p
+			input#fileUpload(type="file" name="{Insert Name}")
+		p
+			button#btnSubmit(type="submit") submit
