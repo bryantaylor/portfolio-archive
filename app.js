@@ -1,10 +1,10 @@
 var express = require('express'),
     path = require('path'),
+    //multer = require('multer'),
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    multer = require('multer');
+    bodyParser = require('body-parser');
 
 // Connect Database & require clients model
 var db = require('./model/db'),
@@ -15,7 +15,9 @@ var routes = require('./routes/index'),
     clients = require('./routes/clients');
 
 var users = require('./routes/users');
-var uploads = require('./routes/uploads');
+
+// Use the upload module we are going to create
+//var upload = multer({ dest: 'uploads/' });
 
 var app = express();
 
@@ -27,12 +29,8 @@ app.set('view engine', 'jade');
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
-// Use the upload module we are going to create
-//app.use(multer({
-//    dest: './uploads/'
-//}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,7 +39,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/clients', clients);
 app.use('/users', users);
-app.use('/uploads', uploads);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

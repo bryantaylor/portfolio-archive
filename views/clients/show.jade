@@ -4,6 +4,9 @@ block content
     h1.
         Client #{client._id}
     p Name: #{client.name}
-    p Badge: #{client.badge}
-    p DOB: #{clientdob}
-    p Is Loved: #{client.isloved}
+    p Background: #{client.background}
+    div#simpleUpload
+    div#dropzone
+        form#mydropzone.dropzone(action="/upload",)
+        
+        

@@ -2,7 +2,13 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'), //mongo connection
     bodyParser = require('body-parser'), //parses information from POST
-    methodOverride = require('method-override'); //used to manipulate POST
+    methodOverride = require('method-override'), //used to manipulate POST
+    uploadManager = require('./uploadManager')(router);
+
+    //var URLSlugs = require('mongoose-url-slugs');
+
+    //multer = require('multer'), // used to handle file uploads
+    //upload = multer({ dest: 'uploads/' });  // set destination for uploaded
 
 //Any requests to this controller must pass through this 'use' function
 //Copy and pasted from method-override
@@ -51,12 +57,15 @@ router.route('/')
         var dob = req.body.dob;
         var company = req.body.company;
         var isloved = req.body.isloved;
+        var slug = req.body.name;
+        //var avatar = req.file;
         //call the create function for our database
         mongoose.model('Client').create({
             name : name,
             background : background,
             dob : dob,
-            isloved : isloved
+            isloved : isloved,
+            slug: slug
         }, function (err, client) {
               if (err) {
                   res.send("There was a problem adding the information to the database.");
